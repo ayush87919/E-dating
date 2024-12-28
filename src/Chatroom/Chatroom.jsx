@@ -61,7 +61,7 @@ const ChatRoom = () => {
           {messages.map((msg) => (
             <div key={msg.id} className={msg.uid === auth.currentUser.uid ? 'text-right' : 'text-left'}>
               <p className="text-sm text-gray-500">{msg.email}</p>
-              <p className={msg.uid === auth.currentUser.uid ? 'bg-green-500 text-white' : 'bg-gray-300'}>
+              <p className={msg.uid === auth.currentUser.uid ? 'bg-green-500 text-black' : 'bg-gray-300'}>
                 {msg.text}
               </p>
             </div>
