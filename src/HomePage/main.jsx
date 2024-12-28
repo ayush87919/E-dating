@@ -59,7 +59,6 @@ console.log("Current user:", currentUser);
           <ul>
             <li><Button__p/></li>
             <li><Button /></li>
-            <li>Upload</li>
             <li><Home /></li>
             <li><Button_p /></li>
           </ul>

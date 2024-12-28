@@ -10,7 +10,7 @@ const Matches = () => {
   const [showModal, setShowModal] = useState(false); // State for modal visibility
 
   // Hardcoded userId
-  const userId = "5s8vW3gdfadFb3vFcCuOrJQ7Z742";
+  const userId = "Y7bKDheALOOX92uyS8fkzmIehGI3";
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -58,7 +58,7 @@ const Matches = () => {
 
       {/* Profile Picture */}
       <img
-        src={profile?.profilePicture || "https://via.placeholder.com/150"}
+        src={profile?.profile_pictures || "https://via.placeholder.com/150"}
         alt={profile?.name || "Profile Picture"}
         className={styles.profilePicture}
       />

@@ -1,10 +1,9 @@
-// src/ChatRoom.js
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase'; // Import Firestore instance
 import { useNavigate } from 'react-router-dom';
-import './chatroom.css'
+import './chatroom.css';
 
 const ChatRoom = () => {
   const [message, setMessage] = useState('');
@@ -43,38 +42,48 @@ const ChatRoom = () => {
       setMessage(''); // Clear the input
     } catch (error) {
       console.error('Error sending message:', error);
+      alert('Failed to send message. Please try again.'); // Display user-friendly error
     }
   };
 
+  // Logout Functionality
+  const handleLogout = () => {
+    auth.signOut()
+      .then(() => navigate('/login'))
+      .catch((error) => console.error('Error logging out:', error));
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <div className="w-full max-w-screen-2xl  shadow-md rounded p-6 backgroundc">
-        <h1 className="text-5xl font-bold mb-4 heading ">Chat Room</h1>
-        <div className=" overflow-y-auto mb-4 chat">
+    <div className="min-h-screen flex flex-col items-center justify-center chatroom-container">
+      <div className="backgroundc">
+        <h1 className="heading">Chat Room</h1>
+        <div className="chat">
           {messages.map((msg) => (
-            <div key={msg.id} className={`mb-2 ${msg.uid === auth.currentUser.uid ? 'text-right' : 'text-left'}`}>
+            <div key={msg.id} className={msg.uid === auth.currentUser.uid ? 'text-right' : 'text-left'}>
               <p className="text-sm text-gray-500">{msg.email}</p>
-              <p className={`inline-block p-2 rounded ${msg.uid === auth.currentUser.uid ? 'bg-green-500 text-white' : 'bg-gray-300'}`}>
+              <p className={msg.uid === auth.currentUser.uid ? 'bg-green-500 text-white' : 'bg-gray-300'}>
                 {msg.text}
               </p>
             </div>
           ))}
         </div>
-       
-
-          <form onSubmit={sendMessage} className="flex space-x-8">
+        <form onSubmit={sendMessage} className="form">
           <input
             type="text"
             placeholder="Type your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="border p-2 w-full rounded-l"
+            className="input"
           />
-          <button type="submit" className="bg-blue-500 w-28 text-white px-4 rounded-r">
+          <button type="submit" className="button">
             Send
           </button>
         </form>
-        
+        <div className="active-users">
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );
